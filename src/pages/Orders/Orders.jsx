@@ -9,7 +9,9 @@ const Order = ({url}) => {
   const [orders, setOrders] = useState([]);
 
   const fetchAllOrders = async () => {
-    const response = await axios.get(`${url}/api/order/list`)
+    const response = await axios.get(url + "api/order/list")
+    console.log(response.data.data);
+    
     if (response.data.success) {
       setOrders(response.data.data.reverse());
     }
@@ -20,7 +22,7 @@ const Order = ({url}) => {
 
   const statusHandler = async (event, orderId) => {
     console.log(event, orderId);
-    const response = await axios.post(`${url}/api/order/status`, {
+    const response = await axios.post(url+"api/order/status", {
       orderId,
       status: event.target.value
     })
@@ -35,6 +37,7 @@ const Order = ({url}) => {
   }, [])
 
   return (
+  <>
     <div className='order add'>
       <h3>Order Page</h3>
       <div className="order-list">
@@ -70,6 +73,7 @@ const Order = ({url}) => {
         ))}
       </div>
     </div>
+  </>
   )
 }
 
